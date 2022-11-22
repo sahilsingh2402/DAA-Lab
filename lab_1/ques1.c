@@ -19,3 +19,8 @@ int main()
     printf("\nTime taken: %f seconds\n", cpu_time);
     return 0;
 }
+
+// Explain the functioning of above code step by step.
+
+// It is a program to generate 1000 random numbers between 0 and 99.
+

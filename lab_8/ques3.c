@@ -1,41 +1,37 @@
-// WAP to implement Matrix Chain Multiplication using dynamic program must show the calculation table.
+// WAP to implement Matrix Chain Multiplication using dynamic programming.
 
+#include <limits.h>
 #include <stdio.h>
-int mcm()
+int MatrixChainOrder(int p[], int n)
 {
-    int n;
-    printf("Enter the number of matrices: ");
-    scanf("%d", &n);
-    int arr[n];
-    printf("Enter the dimensions of the matrices: ");
-    for (int i = 0; i < n; i++)
+    int m[n][n];
+    int i, j, k, L, q;
+    for (i = 1; i < n; i++)
+        m[i][i] = 0;
+
+    for (L = 2; L < n; L++)
     {
-        scanf("%d", &arr[i]);
-    }
-    int dp[n][n];
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < n; j++)
+        for (i = 1; i < n - L + 1; i++)
         {
-            dp[i][j] = 0;
-        }
-    }
-    for (int i = 1; i < n; i++)
-    {
-        for (int j = 0; j < n - i; j++)
-        {
-            int k = j + i;
-            dp[j][k] = 999999;
-            for (int l = j; l < k; l++)
+            j = i + L - 1;
+            m[i][j] = INT_MAX;
+            for (k = i; k <= j - 1; k++)
             {
-                int temp = dp[j][l] + dp[l + 1][k] + arr[j] * arr[l + 1] * arr[k + 1];
-                if (temp < dp[j][k])
-                {
-                    dp[j][k] = temp;
-                }
+                q = m[i][k] + m[k + 1][j] + p[i - 1] * p[k] * p[j];
+                if (q < m[i][j])
+                    m[i][j] = q;
             }
         }
     }
-    printf("The minimum number of multiplications required is: %d\n", dp[0][n - 1]);
+
+    return m[1][n - 1];
+}
+
+int main()
+{
+    int arr[] = {1, 2, 3, 4};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    printf("Minimum number of multiplications is %d\n", MatrixChainOrder(arr, size));
     return 0;
 }

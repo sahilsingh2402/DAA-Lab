@@ -1,4 +1,4 @@
-// WAP to print multiplication table of any number (n) using n.
+// WAP to print multiplication table of any number (n) using recursion.
 
 #include <stdio.h>
 void mul_table(int n, int i)
